@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display } from "next/font/google";
 import "./globals.css";
-import Navbar from "./components/Navbar";
-import Sidebar from "./components/Searchbar";
+
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -20,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${playfair.variable} h-full antialiased`}>
+    <html lang="en" className={`${playfair.variable} h-full antialiased dark`}>
       <body className="min-h-full flex flex-col">      
         {children}
       </body>
