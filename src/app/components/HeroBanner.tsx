@@ -46,7 +46,7 @@ export default function HeroBanner() {
         </p>
 
         {/* CTA Button */}
-        <Link href="/#surahs">
+        <Link href="/readQuran">
           <button
             type="button"
             className="mt-6 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-semibold rounded-lg transition"
