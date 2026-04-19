@@ -1,6 +1,14 @@
 import AyahCard from "@/app/components/surah/AyahCard";
 import axiosInstance from "@/app/lib/axios";
 
+type SurahAyah = {
+  number: number;
+  numberInSurah: number;
+  text: string;
+  translation?: string;
+  juz?: number;
+};
+
 
 async function getSurah(id: string) {
 //   if (!id) {
@@ -9,7 +17,7 @@ async function getSurah(id: string) {
 //   }
 
   try {
-    const res = await axiosInstance.get(`/surah/${id}/en.asad`);
+    const res = await axiosInstance.get(`/surah/${id}`);
     return res.data.data;
   } catch (error) {
     console.error("Fetch Error:", error);
@@ -45,7 +53,7 @@ export default async function SurahPage({
       </div>
 
       {/* Ayahs */}
-      {surah.ayahs.map((ayah: any) => (
+      {surah.ayahs.map((ayah: SurahAyah) => (
         <AyahCard key={ayah.number} ayah={ayah} />
       ))}
     </div>
