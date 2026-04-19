@@ -1,13 +1,9 @@
 "use client";
 
-// components/AyahCard.jsx
-
 import { useEffect, useMemo, useState } from "react";
-import { CiBookmarkCheck, CiBookmarkPlus } from "react-icons/ci";
 import { IoMdCheckboxOutline } from "react-icons/io";
 import { LuBookmarkCheck, LuBookmarkPlus } from "react-icons/lu";
 import { MdOutlineContentCopy, MdOutlineSmsFailed } from "react-icons/md";
-import { PiBookmarkDuotone } from "react-icons/pi";
 
 type Ayah = {
   number: number;

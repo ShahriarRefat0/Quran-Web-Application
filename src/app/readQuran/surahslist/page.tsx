@@ -5,6 +5,7 @@ import SurahCard from '@/app/components/surah/SurahCard';
 async function getSurahs() {
 try {    
     const res = await axiosInstance.get("/surah");
+    console.log("data",res.data.data)
     return res.data.data;
 } catch (err){
     console.error(err)

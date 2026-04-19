@@ -1,30 +1,40 @@
 import SurahContent from "@/app/components/surah/SurahContent";
 import axiosInstance from "@/app/lib/axios";
 
+type ApiAyah = {
+  number: number;
+  numberInSurah: number;
+  text: string;
+  juz?: number;
+};
+
 async function getSurah(id: string) {
   try {
-    // Fetch Arabic text
-    const arabicRes = await axiosInstance.get(`/surah/${id}`);
-    const arabicData = arabicRes.data.data;
+    const [arabicRes, englishRes] = await Promise.all([
+      axiosInstance.get(`/surah/${id}/editions/quran-uthmani`),
+      axiosInstance.get(`/surah/${id}/editions/en.asad`),
+    ]);
 
-    // Fetch English translation (Sahih International)
-    const englishRes = await axiosInstance.get(
-      `/surah/${id}?edition=en.sahih`
-    );
-    const englishData = englishRes.data.data;
+    const arabicData = arabicRes.data?.data?.[0];
+    const englishData = englishRes.data?.data?.[0];
+    // console.log({arabicData, englishData})
 
-    // Merge ayahs: Arabic text with English translation
-    if (arabicData.ayahs && englishData.ayahs) {
-      arabicData.ayahs = arabicData.ayahs.map((ayah: unknown, index: number) => {
-        const baseAyah = ayah as Record<string, unknown>;
-        return {
-          ...baseAyah,
-          translation: (englishData.ayahs[index] as Record<string, unknown>)?.text || undefined,
-        };
-      });
+    if (!arabicData || !englishData) {
+      return null;
     }
 
-    return arabicData;
+    const mergedAyahs = (arabicData.ayahs as ApiAyah[]).map(
+      (ayah: ApiAyah, index: number) => ({
+      ...ayah,
+      translation: englishData.ayahs[index]?.text,
+      })
+    );
+
+
+    return {
+      ...arabicData,
+      ayahs: mergedAyahs,
+    };
   } catch (error) {
     console.error("Fetch Error:", error);
     return null;
@@ -39,10 +49,11 @@ export default async function SurahPage({
   const { id } = await params; 
 
   const surah = await getSurah(id);
+//   console.log(surah)
 
   if (!surah) {
     return <p className="p-6 text-red-400">Failed to load</p>;
   }
 
-  return <SurahContent surah={surah} />;
+  return <SurahContent  surah={surah} />;
 }
