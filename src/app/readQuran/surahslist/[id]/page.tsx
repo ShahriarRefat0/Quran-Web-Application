@@ -11,31 +11,72 @@ type ApiAyah = {
   juz?: number;
 };
 
+type ApiEdition = {
+  number?: number;
+  identifier?: string;
+  language?: string;
+  edition?: {
+    identifier?: string;
+    language?: string;
+  };
+  englishName?: string;
+  englishNameTranslation?: string;
+  ayahs?: ApiAyah[];
+};
+
 async function getSurah(id: string) {
   try {
-    const [arabicRes, englishRes] = await Promise.all([
-      axiosInstance.get(`/surah/${id}/editions/quran-uthmani`),
-      axiosInstance.get(`/surah/${id}/editions/en.asad`),
-    ]);
+    const response = await axiosInstance.get(
+      `/surah/${id}/editions/quran-uthmani,en.asad`
+    );
 
-    const arabicData = arabicRes.data?.data?.[0];
-    const englishData = englishRes.data?.data?.[0];
-    // console.log({arabicData, englishData})
+    const payload = response.data?.data;
+    const editions: ApiEdition[] = Array.isArray(payload)
+      ? payload
+      : payload
+      ? [payload]
+      : [];
+
+    const arabicData =
+      editions.find(
+        (edition) =>
+          edition.identifier === "quran-uthmani" ||
+          edition.edition?.identifier === "quran-uthmani"
+      ) ||
+      editions.find(
+        (edition) => edition.language === "ar" || edition.edition?.language === "ar"
+      );
+
+    const englishData =
+      editions.find(
+        (edition) =>
+          edition.identifier === "en.asad" ||
+          edition.edition?.identifier === "en.asad"
+      ) ||
+      editions.find(
+        (edition) => edition.language === "en" || edition.edition?.language === "en"
+      );
 
     if (!arabicData || !englishData) {
       return null;
     }
 
-    const mergedAyahs = (arabicData.ayahs as ApiAyah[]).map(
-      (ayah: ApiAyah, index: number) => ({
+    const arabicAyahs = Array.isArray(arabicData.ayahs) ? arabicData.ayahs : [];
+    const englishAyahs = Array.isArray(englishData.ayahs)
+      ? englishData.ayahs
+      : [];
+
+    const mergedAyahs = arabicAyahs.map((ayah: ApiAyah, index: number) => ({
       ...ayah,
-      translation: englishData.ayahs[index]?.text,
-      })
-    );
+      translation: englishAyahs[index]?.text?.trim(),
+    }));
 
 
     return {
-      ...arabicData,
+      number: arabicData.number ?? Number(id),
+      englishName: arabicData.englishName ?? "Unknown Surah",
+      englishNameTranslation:
+        arabicData.englishNameTranslation ?? "Translation unavailable",
       ayahs: mergedAyahs,
     };
   } catch (error) {
