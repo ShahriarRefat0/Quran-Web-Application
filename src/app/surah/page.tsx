@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Searchbar = () => {
+const Surapage = () => {
     return (
         <div>
-            search bar
+            surapgaelist
         </div>
     );
 };
 
-export default Searchbar;
+export default Surapage;
