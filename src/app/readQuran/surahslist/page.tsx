@@ -2,11 +2,20 @@ import React from 'react';
 import axiosInstance from "../../lib/axios";
 import SurahCard from '@/app/components/surah/SurahCard';
 
+type Surah = {
+  number: number;
+  name: string;
+  englishName: string;
+  englishNameTranslation: string;
+  revelationType: string;
+  numberOfAyahs: number;
+};
+
 async function getSurahs() {
 try {    
     const res = await axiosInstance.get("/surah");
     console.log("data",res.data.data)
-    return res.data.data;
+    return res.data.data as Surah[];
 } catch (err){
     console.error(err)
     return [];
@@ -34,7 +43,7 @@ const SurahsList = async () => {
       </p>
     </div>
         <div className='p-5 grid grid-cols-2 md:grid-cols-3 gap-5'>
-           {surahs.map((surah) => (
+           {surahs.map((surah: Surah) => (
                <SurahCard key={surah.number} surah={surah} />
             ))}
         </div>

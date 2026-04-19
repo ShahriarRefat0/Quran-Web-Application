@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { LuBookmarkMinus } from "react-icons/lu";
 
 type BookmarkedAyah = {
@@ -16,13 +16,14 @@ type BookmarkedAyah = {
 };
 
 export default function BookmarksPage() {
-  const [bookmarks, setBookmarks] = useState<BookmarkedAyah[]>([]);
+  const [bookmarks, setBookmarks] = useState<BookmarkedAyah[]>(() => {
+    if (typeof window === "undefined") {
+      return [];
+    }
 
-  useEffect(() => {
     const stored = localStorage.getItem("quran.bookmarks");
-    const parsed: BookmarkedAyah[] = stored ? JSON.parse(stored) : [];
-    setBookmarks(parsed);
-  }, []);
+    return stored ? JSON.parse(stored) : [];
+  });
 
   const removeBookmark = (id: string) => {
     const next = bookmarks.filter((item) => item.id !== id);

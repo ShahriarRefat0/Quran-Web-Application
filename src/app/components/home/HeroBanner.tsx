@@ -34,9 +34,9 @@ export default function HeroBanner() {
 
         {/* Divider */}
         <div className="flex items-center justify-center my-4">
-          <div className="w-16 h-[1px] bg-yellow-400"></div>
+          <div className="w-16 h-px bg-yellow-400"></div>
           <div className="mx-2 text-yellow-400">◆</div>
-          <div className="w-16 h-[1px] bg-yellow-400"></div>
+          <div className="w-16 h-px bg-yellow-400"></div>
         </div>
 
         {/* Description */}
