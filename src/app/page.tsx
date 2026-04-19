@@ -1,8 +1,8 @@
-import FeaturedSurahs from "./components/FeaturedSurahs";
-import Footer from "./components/Footer";
-import HeroBanner from "./components/HeroBanner";
-import Navbar from "./components/Navbar";
-import StatsSection from "./components/StatsSection";
+import FeaturedSurahs from "./components/home/FeaturedSurahs";
+import Footer from "./components/ui/Footer";
+import HeroBanner from "./components/home/HeroBanner";
+import Navbar from "./components/ui/Navbar";
+import StatsSection from "./components/home/StatsSection";
 
 export default function Home() {
   return (
