@@ -1,13 +1,20 @@
 // components/AyahCard.jsx
 
-export default function AyahCard() {
-
-    const ayah = {
-  numberInSurah: 1,
-  text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
-  translation: "In the name of Allah, the Most Gracious, the Most Merciful.",
-  juz: 1
+type Ayah = {
+  numberInSurah: number;
+  text: string;
+  translation?: string;
+  juz?: number;
 };
+
+export default function AyahCard({ ayah }: { ayah: Ayah }) {
+
+//     const ayah = {
+//   numberInSurah: 1,
+//   text: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+//   translation: "In the name of Allah, the Most Gracious, the Most Merciful.",
+//   juz: 1
+// };
 
   return (
     <div className="rounded-xl border border-[#e0b583]/20 bg-[#111] p-4 shadow-md transition hover:shadow-lg sm:p-5">
@@ -19,18 +26,18 @@ export default function AyahCard() {
         </span>
 
         <span className="rounded bg-[#e0b583]/10 px-2 py-1 text-[11px] text-[#e0b583] sm:text-xs">
-          {ayah.juz} Juz
+          {ayah.juz ?? "-"} Juz
         </span>
       </div>
 
       {/* Arabic Text */}
-      <p className="font-arabic text-right text-xl leading-loose text-[#e0b583] sm:text-2xl">
+      <p className="quran-arabic-text text-right leading-loose text-[#e0b583]">
         {ayah.text}
       </p>
 
       {/* Translation */}
       {ayah.translation && (
-        <p className="mt-4 text-xs leading-relaxed text-gray-300 sm:text-sm">
+        <p className="quran-translation-text mt-4 leading-relaxed text-gray-300">
           {ayah.translation}
         </p>
       )}

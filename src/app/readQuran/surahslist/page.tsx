@@ -22,6 +22,9 @@ const SurahsList = async () => {
         <div className='p-5'>
                {/* Top Section */}
     <div className="mb-6 border-b border-[#e0b583]/20 pb-4">
+      <p className="text-xs uppercase tracking-[0.22em] text-[#e0b583]/80">
+                    Read Quran
+                </p>
       <h1 className="text-2xl md:text-3xl font-bold text-white">
         All Surahs
       </h1>
