@@ -2,6 +2,9 @@ import React from 'react';
 import axiosInstance from "../../lib/axios";
 import SurahCard from '@/app/components/surah/SurahCard';
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type Surah = {
   number: number;
   name: string;

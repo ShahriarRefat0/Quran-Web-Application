@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 const axiosInstance = axios.create({
-    baseURL: "https://api.alquran.cloud/v1",
+    baseURL: process.env.BASE_URL || "https://api.alquran.cloud/v1",
     timeout: 5000,
 })
 

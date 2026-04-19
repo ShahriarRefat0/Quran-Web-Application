@@ -1,6 +1,9 @@
 import SurahContent from "@/app/components/surah/SurahContent";
 import axiosInstance from "@/app/lib/axios";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type ApiAyah = {
   number: number;
   numberInSurah: number;
