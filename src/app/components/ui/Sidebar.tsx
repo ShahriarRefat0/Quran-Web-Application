@@ -34,7 +34,15 @@ const getStoredValue = (key: string, fallback: string) => {
   return localStorage.getItem(key) ?? fallback;
 };
 
-const getStoredNumber = (key: string, fallback: number) => {
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, value));
+
+const getStoredNumber = (
+  key: string,
+  fallback: number,
+  min: number,
+  max: number
+) => {
   if (typeof window === "undefined") {
     return fallback;
   }
@@ -42,7 +50,11 @@ const getStoredNumber = (key: string, fallback: number) => {
   const rawValue = localStorage.getItem(key);
   const parsed = Number(rawValue);
 
-  return Number.isNaN(parsed) ? fallback : parsed;
+  if (!Number.isFinite(parsed)) {
+    return fallback;
+  }
+
+  return clamp(parsed, min, max);
 };
 
 export default function Sidebar() {
@@ -53,10 +65,10 @@ export default function Sidebar() {
     getStoredValue("quran.arabicFont", ARABIC_FONT_OPTIONS[0].value)
   );
   const [arabicFontSize, setArabicFontSize] = useState(() =>
-    getStoredNumber("quran.arabicFontSize", 32)
+    getStoredNumber("quran.arabicFontSize", 32, 20, 56)
   );
   const [translationFontSize, setTranslationFontSize] = useState(() =>
-    getStoredNumber("quran.translationFontSize", 14)
+    getStoredNumber("quran.translationFontSize", 14, 12, 28)
   );
 
   useEffect(() => {
