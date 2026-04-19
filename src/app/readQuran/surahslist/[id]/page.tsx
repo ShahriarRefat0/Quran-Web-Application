@@ -1,24 +1,30 @@
-import AyahCard from "@/app/components/surah/AyahCard";
+import SurahContent from "@/app/components/surah/SurahContent";
 import axiosInstance from "@/app/lib/axios";
 
-type SurahAyah = {
-  number: number;
-  numberInSurah: number;
-  text: string;
-  translation?: string;
-  juz?: number;
-};
-
-
 async function getSurah(id: string) {
-//   if (!id) {
-//     console.error("ID is missing");
-//     return null;
-//   }
-
   try {
-    const res = await axiosInstance.get(`/surah/${id}`);
-    return res.data.data;
+    // Fetch Arabic text
+    const arabicRes = await axiosInstance.get(`/surah/${id}`);
+    const arabicData = arabicRes.data.data;
+
+    // Fetch English translation (Sahih International)
+    const englishRes = await axiosInstance.get(
+      `/surah/${id}?edition=en.sahih`
+    );
+    const englishData = englishRes.data.data;
+
+    // Merge ayahs: Arabic text with English translation
+    if (arabicData.ayahs && englishData.ayahs) {
+      arabicData.ayahs = arabicData.ayahs.map((ayah: unknown, index: number) => {
+        const baseAyah = ayah as Record<string, unknown>;
+        return {
+          ...baseAyah,
+          translation: (englishData.ayahs[index] as Record<string, unknown>)?.text || undefined,
+        };
+      });
+    }
+
+    return arabicData;
   } catch (error) {
     console.error("Fetch Error:", error);
     return null;
@@ -38,24 +44,5 @@ export default async function SurahPage({
     return <p className="p-6 text-red-400">Failed to load</p>;
   }
 
-
-  return (
-    <div className="p-6 space-y-4">
-      
-      {/* Header */}
-      <div className="mb-6 border-b border-[#e0b583]/20 pb-4">
-        <h1 className="text-2xl font-bold text-[#e0b583]">
-          {surah.englishName}
-        </h1>
-        <p className="text-gray-400 text-sm">
-          {surah.englishNameTranslation}
-        </p>
-      </div>
-
-      {/* Ayahs */}
-      {surah.ayahs.map((ayah: SurahAyah) => (
-        <AyahCard key={ayah.number} ayah={ayah} />
-      ))}
-    </div>
-  );
+  return <SurahContent surah={surah} />;
 }

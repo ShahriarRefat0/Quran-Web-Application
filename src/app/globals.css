@@ -1,8 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --quran-arabic-font: "Amiri", "Times New Roman", serif;
+  --quran-arabic-size: 32px;
+  --quran-translation-size: 14px;
 }
 
 @theme inline {
@@ -24,4 +28,13 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-playfair), Georgia, serif;
+}
+
+.quran-arabic-text {
+  font-family: var(--quran-arabic-font);
+  font-size: var(--quran-arabic-size);
+}
+
+.quran-translation-text {
+  font-size: var(--quran-translation-size);
 }

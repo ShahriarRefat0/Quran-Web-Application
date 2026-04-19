@@ -12,7 +12,7 @@ const menuItems = [
   { name: "Home", href: "/" },
   // { name: "Read Quran", href: "/readQuran" },
   { name: "Surahs List", href: "/readQuran/surahslist" },
-  { name: "Bookmarks", href: "/bookmarks" },
+  { name: "Bookmarks", href: "/readQuran/bookmarks" },
 ];
 
 const ARABIC_FONT_OPTIONS = [
