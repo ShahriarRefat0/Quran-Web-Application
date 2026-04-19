@@ -1,16 +1,25 @@
 # Quran App
 
-A modern Quran reading application built with Next.js, featuring:
+Quran App is a modern Quran reading experience built with Next.js. It provides surah browsing, ayah-by-ayah reading, English translation display, search, bookmarks, and reading preferences with persistent settings.
 
-- Surah browsing with dynamic API data
-- Ayah-by-ayah reading with Arabic text and English translation
-- Search by translation text
-- Copy and bookmark actions for ayahs
-- Reading preferences with persistent font and size settings
+## Overview
+
+This project is designed for smooth Quran reading on desktop and mobile. It combines dynamic API data with a focused UI for reading, searching, and saving ayahs.
+
+## Key Features
+
+- Browse all surahs from the Quran Cloud API
+- Read Arabic ayahs with English translation
+- Search ayahs by translation text or ayah number
+- Copy ayah text with one click
+- Bookmark ayahs for later reading
+- Customize Arabic and translation font sizes
+- Save reading preferences in local storage
+- Responsive layout for mobile and desktop
 
 ## Tech Stack
 
-- Next.js 16 App Router
+- Next.js 16
 - React 19
 - TypeScript
 - Tailwind CSS v4
@@ -31,30 +40,32 @@ Run the development server:
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open the app at:
 
-## Scripts
-
-```bash
-npm run dev
-npm run build
-npm run start
-npm run lint
+```text
+http://localhost:3000
 ```
+
+## Available Scripts
+
+- `npm run dev` - start the development server
+- `npm run build` - create a production build
+- `npm run start` - start the production server
+- `npm run lint` - run ESLint
 
 ## Project Structure
 
 - `src/app/page.tsx` - home page
 - `src/app/readQuran` - Quran reading routes
-- `src/app/components/home` - home page sections
-- `src/app/components/surah` - surah and ayah UI
-- `src/app/components/ui` - shared layout components
+- `src/app/components/home` - hero, featured surahs, and stats sections
+- `src/app/components/surah` - surah cards and ayah cards
+- `src/app/components/ui` - shared UI components
 - `src/app/lib/axios.js` - API client
 
-## API
+## Data Source
 
-The app uses the Al Quran Cloud API for surah lists, ayah content, and translations.
+The application uses the Al Quran Cloud API for surah lists, ayah content, and translations.
 
-## Deploy
+## Deployment
 
-The app is ready for deployment on Vercel or any Node.js hosting platform that supports Next.js.
+The project is ready to deploy on Vercel or any platform that supports Next.js applications.
