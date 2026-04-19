@@ -1,4 +1,3 @@
-// components/SurahCard.jsx
 
 import Link from "next/link";
 
@@ -16,8 +15,9 @@ type SurahCardProps = {
 };
 
 export default function SurahCard({ surah }: SurahCardProps) {
+  // console.log(surah)
   return (
-    <Link href={`/surah/${surah.number}`}>
+   <Link href={`/readQuran/surahslist/${surah.number}`}>
       <div className="cursor-pointer rounded-xl border border-[#e0b583]/20 bg-[#111] p-4 transition hover:border-[#e0b583]/40 hover:shadow-lg sm:p-5">
         
         {/* Top Section */}

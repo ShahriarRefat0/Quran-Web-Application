@@ -1,17 +1,40 @@
 import React from 'react';
+import axiosInstance from "../../lib/axios";
+import SurahCard from '@/app/components/surah/SurahCard';
 
-function getSurahs() {
-    const res = await axiosIn
+async function getSurahs() {
+try {    
+    const res = await axiosInstance.get("/surah");
+    return res.data.data;
+} catch (err){
+    console.error(err)
+    return [];
+}
 }
 
-const SurahsList = () => {
 
+const SurahsList = async () => {
 
+    const surahs = await getSurahs();
+// console.log(surahs)
 
     return (
-        <div>
-            
+        <div className='p-5'>
+               {/* Top Section */}
+    <div className="mb-6 border-b border-[#e0b583]/20 pb-4">
+      <h1 className="text-2xl md:text-3xl font-bold text-white">
+        All Surahs
+      </h1>
+      <p className="text-sm text-gray-400 mt-1">
+        Browse all 114 Surahs of the Holy Quran
+      </p>
+    </div>
+        <div className='p-5 grid grid-cols-2 md:grid-cols-3 gap-5'>
+           {surahs.map((surah) => (
+               <SurahCard key={surah.number} surah={surah} />
+            ))}
         </div>
+            </div>
     );
 };
 

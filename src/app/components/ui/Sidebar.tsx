@@ -5,11 +5,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { IoMenu } from "react-icons/io5";
+import { MdClose } from "react-icons/md";
 
 const menuItems = [
   { name: "Home", href: "/" },
   { name: "Read Quran", href: "/readQuran" },
-  { name: "Surahs", href: "/surahs" },
+  { name: "Surahs List", href: "/readQuran/surahslist" },
   { name: "Bookmarks", href: "/bookmarks" },
   { name: "Settings", href: "/settings" },
 ];
@@ -24,7 +26,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <aside className="border-b border-[#e0b583]/20 bg-[#0d0d0d] px-4 py-3 lg:hidden">
+      <aside className="sticky top-0 z-30 border-b border-[#e0b583]/20 bg-[#0d0d0d] px-4 py-3 lg:hidden">
         <div className="flex items-center justify-between">
           <div className="text-lg font-bold text-[#e0b583]">Quran App</div>
           <button
@@ -34,7 +36,7 @@ export default function Sidebar() {
             aria-label={isOpen ? "Close menu" : "Open menu"}
             className="rounded-md border border-[#e0b583]/30 px-2 py-1 text-lg text-[#e0b583] transition hover:bg-[#e0b583]/10"
           >
-            {isOpen ? "✕" : "☰"}
+            {isOpen ? <MdClose /> : <IoMenu />}
           </button>
         </div>
       </aside>
@@ -85,7 +87,7 @@ export default function Sidebar() {
         </nav>
       </aside>
 
-      <aside className="hidden min-h-screen w-64 shrink-0 border-r border-[#e0b583]/20 bg-[#0d0d0d] p-5 lg:flex lg:flex-col">
+      <aside className="hidden h-screen w-64 shrink-0 overflow-y-auto border-r border-[#e0b583]/20 bg-[#0d0d0d] p-5 lg:sticky lg:top-0 lg:flex lg:flex-col">
         {/* Logo */}
         <div className="mb-8 text-xl font-bold text-[#e0b583]">Quran App</div>
 
